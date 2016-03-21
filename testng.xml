@@ -71,4 +71,14 @@
 			<class name="autoTests.TestRunner"/>
 		</classes>
 	</test>
+		<test name="dashboard" enabled="true" preserve-order="true">
+		<groups>
+			<run>
+				<include name="dashboard"/>
+			</run>
+		</groups>
+		<classes>
+			<class name="autoTests.TestRunner"/>
+		</classes>
+	</test>
 </suite>
