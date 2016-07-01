@@ -29,6 +29,7 @@ public class Constants {
         public static class MVD {
             public static final String CRIMINAL_RECORD = "Надання довідки про притягнення до кримінальної відповідальності, відсутність (наявність) судимості або обмежень, передбачених кримінально-процесуальним законодавством України";
             public static final String REGISTER_USED_CAR = "Реєстрація авто з пробігом в МРЕВ";
+            public static final String REREGISTER_CAR = "Перереєстрація транспортного засобу на нового власника за договором купівлі-продажу";
         }
 
         // Взаємодія з державними органами
@@ -71,6 +72,11 @@ public class Constants {
             public static final String BIRTH_DAY = "01.01.1970";
             public static final String BIRTH_LOCAL = "Україна,Дніпропетровська,Дніпропетровськ";
             public static final String RESIDENT = "Українське";
+            public static final String LAST_NAME_RUS = "Белявцев";
+            public static final String NAME_RUS = "Владимир";
+            public static final String MIDDLE_NAME_RUS = "Владимирович";
+            public static final String SEX_MALE = "Чоловіча";
+
         }
 
         //---------- Данные для входа в Банк ИД ПриватБанк  ----------//

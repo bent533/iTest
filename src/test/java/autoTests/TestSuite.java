@@ -13,7 +13,9 @@ import autoTests.pages.service.taxes.CertificateFromUnifiedRegisterPage;
 import autoTests.pages.service.taxes.PensionAmountCertificatePage;
 import autoTests.pages.service.taxes.PersonalIncomeCertificatePage;
 import autoTests.pages.service.test.*;
+import org.omg.CORBA.StringHolder;
 import org.openqa.selenium.WebDriver;
+import org.yaml.snakeyaml.scanner.Constant;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -621,10 +623,15 @@ public class TestSuite extends CustomMethods {
 		String phone = Constants.TestData.PersonalInfo.PHONE;
 		String resType = "Прошу надати довідку в паперовому вигляді";
 		String email = Constants.TestData.PersonalInfo.E_MAIL;
+		String lastNameRus = Constants.TestData.PersonalInfo.LAST_NAME_RUS;
+		String nameRus = Constants.TestData.PersonalInfo.NAME_RUS;
+		String middleNameRus = Constants.TestData.PersonalInfo.MIDDLE_NAME_RUS;
+		String answerOnChangingName = "Ні, ніколи";
+		String answerOnMistakesInName = "Ні,ПІБ не містить помилок";
+		String sex = Constants.TestData.PersonalInfo.SEX_MALE;
 
 		addStepToTheReport("1. Перейдем на страницу");
 		MainPage mainPage = new MainPage(driver);
-		SelectAreaPage selectAreaPage = new SelectAreaPage(driver);
 		BankIdPage bankIdPage = new BankIdPage(driver);
 		CriminalRecordPage criminalRecordPage = new CriminalRecordPage(driver);
 		StatusPage statusPage = new StatusPage(driver);
@@ -633,13 +640,31 @@ public class TestSuite extends CustomMethods {
 		addStepToTheReport("2. Выполним проверки");
 		mainPage.typeInSearchField(service);
 		mainPage.clickService(service);
-		assertEquals(selectAreaPage.serviceName.getText(), service);
+        SelectAreaPage selectAreaPage = new SelectAreaPage(driver);
+//		assertEquals(selectAreaPage.getServiceNameText(), service);
 		selectAreaPage.selectRegion(region);
-		selectAreaPage.selectCity(city);
 		bankIdPage.loginByPrivatBankBankID();
 		assertEquals(criminalRecordPage.getServiceName(), service);
 
-		criminalRecordPage.typeInBirthDateField(birthDate)
+		criminalRecordPage.typeInLastNameRus(lastNameRus)
+				.typeInNamerus(nameRus)
+				.typeInMiddleNameRus(middleNameRus)
+				.selectNoMistakesDropDown(answerOnMistakesInName)
+				.selectDidntChangedName(answerOnChangingName)
+				.selectSex(sex)
+				.selectCitizenship(country)
+				.selectCountryOfBirth(country)
+				.typeInCityOfBirth(city)
+				.selectGoal(goal)
+				.typeInPhoneField(phone)
+				.typeInEmailField(email)
+				.clickConfirmButton()
+				.verifyServiceSuccessCreated()
+				.saveReferenceNumber();
+
+		Thread.sleep(10000);
+
+/*		criminalRecordPage.typeInBirthDateField(birthDate)
 				.typeInBirthLocField(birthLoc)
 				.selectСountry(country)
 				.selectGoal(goal)
@@ -650,17 +675,17 @@ public class TestSuite extends CustomMethods {
 				.verifyServiceSuccessCreated()
 				.saveReferenceNumber();
 
-		bankIdPage.logOut();
+/*		bankIdPage.logOut();
 		customMethods.openStatusesPage(driver);
 		statusPage.enterReferenceNumber(CriminalRecordPage.referenceNumber)
 				.clickViewStatusButton()
-				.verifyStatus(Constants.Status.SUCCESS_STATUS5);
+				.verifyStatus(Constants.Status.SUCCESS_STATUS5);*/
 	}
 	//</editor-fold>
 	//<editor-fold desc="D2 - Регистрация БУ автомобиля.">
 	public void D2_RegisterUsedCarTest(WebDriver driver) throws Exception {
 		// ------------------- Тестовые данные -------------------//
-		String service = Constants.Services.MVD.REGISTER_USED_CAR;
+		String service = Constants.Services.MVD.REREGISTER_CAR;
 		String region = Constants.Areas.Region.DNIPROPETROVSKA;
 		String city = Constants.Areas.City.DNIPROPETROVSK;
 		String address = "Дніпропетровськ (Центральний), вул. Поля, 1";

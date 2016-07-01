@@ -71,6 +71,8 @@ public class BankIdPage extends CustomMethods {
     // Method for FIO verification after login
     public void verifyFIO() throws Exception {
         waitForElementPresent(driver,fio,configVariables.implicitTimeWait,1);
+        WebDriverWait waitForElement = new WebDriverWait(driver, 10, 100);
+        waitForElement.until(ExpectedConditions.textToBePresentInElement(fio, Constants.TestData.PersonalInfo.FIO_UA));
         assertEquals(fio.getText(), Constants.TestData.PersonalInfo.FIO_UA);
     }
 

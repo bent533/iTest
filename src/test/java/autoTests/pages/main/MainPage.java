@@ -42,7 +42,6 @@ public class MainPage {
 
 
     // Methods
-
     public MainPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
@@ -51,7 +50,8 @@ public class MainPage {
     // Method for service selection
     public void clickService(String service) {
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(.,'"  + service + "')]"))).click();
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(.,'"  + service + "')]"))).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@ng-href=\"/service/1/general\"]"))).click();
     }
 
     // Method for searching the service

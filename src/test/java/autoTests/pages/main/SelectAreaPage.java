@@ -18,10 +18,11 @@ public class SelectAreaPage extends CustomMethods {
     ConfigurationVariables configVariables = ConfigurationVariables.getInstance();
     // Variables
 
-    @FindBy(xpath = "//div[@class='container ng-scope']/div[@class='service-name ng-binding']")
+    @FindBy(xpath = "//div[@class='service-name ng-binding']")
     public WebElement serviceName;      // название услуги
 
-    @FindBy(css = "button.btn.btn-default")
+//    @FindBy(css = "button.btn.btn-default")
+    @FindBy(id = "region")
     public WebElement regions;         // выпадающий список региона
 
     @FindBy(xpath = "//label[@for='region']")
@@ -30,6 +31,8 @@ public class SelectAreaPage extends CustomMethods {
     @FindBy(xpath = "(//button[@type='button'])[3]")
     public WebElement cities;          // выпадающий список города
 
+    @FindBy(xpath = "//span[@class=\"input-group-btn\"]")
+    private WebElement regionsButton;
 
     // Methods
 
@@ -39,8 +42,9 @@ public class SelectAreaPage extends CustomMethods {
     }
 
     // Method for selection of Region
-    public void selectRegion(String region) {
-        regions.click();
+    public void selectRegion(String region) throws Exception {
+        waitForElementPresent(driver, regionsButton, 5, 1000);
+        regionsButton.click();
         driver.findElement(By.xpath("//a[contains(text(),'" + region + "')]")).click();
     }
 
@@ -61,9 +65,10 @@ public class SelectAreaPage extends CustomMethods {
         driver.findElement(By.xpath("//a[text()='Статистика']")).click();
     }
 
-    public String getServiceName() throws Exception {
-        waitForElementPresent(driver,serviceName,configVariables.implicitTimeWait,1);
+    public String getServiceNameText() throws Exception {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        //wait.until(ExpectedConditions.stalenessOf(serviceName));
+        wait.until(ExpectedConditions.visibilityOf(serviceName));
         return serviceName.getText();
-
     }
 }
